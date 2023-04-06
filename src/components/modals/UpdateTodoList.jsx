@@ -1,8 +1,6 @@
 // react imports
 import { useState } from "react";
 import ReactDOM from "react-dom";
-
-// library imports
 import { RxCross1 } from "react-icons/rx";
 
 import "../modalStyles/style.css";

@@ -14,8 +14,10 @@ function UpdateTodoItem({ onUpdateOpen }) {
     title: currentCheckedItem.title,
     dueDate: currentCheckedItem.dueDate,
   });
+  
   console.log(values);
-
+  
+  
   const handleToggle = () => {
     onUpdateOpen();
   };

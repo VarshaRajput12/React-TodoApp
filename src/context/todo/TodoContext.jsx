@@ -1,13 +1,27 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from "react";
 
 const TodoContext = createContext();
 
 function TodoProvider({ children }) {
-  const [todoList, setTodoList] = useState([]);
+  // const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useState(
+    JSON.parse(localStorage.getItem("todoList")) || []
+  );
   const [currentCheckedList, setCurrentCheckedList] = useState(null);
   const [currentCheckedItemList, setCurrentCheckedItemList] = useState(null);
   const [currentCheckedItem, setCurrentCheckedItem] = useState(null);
   console.log(todoList);
+
+
+
+
+  useEffect(() => {
+    // Save tasks to local storage whenever they change
+    localStorage.setItem("todoList", JSON.stringify(todoList));
+  }, [todoList]);
+
+
+
 
   const deleteItemById = itemId => {
     const listIndex = todoList.findIndex(list =>
