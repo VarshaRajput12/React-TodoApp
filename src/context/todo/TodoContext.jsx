@@ -12,24 +12,18 @@ function TodoProvider({ children }) {
   const [currentCheckedItem, setCurrentCheckedItem] = useState(null);
   console.log(todoList);
 
-
-
-
   useEffect(() => {
     // Save tasks to local storage whenever they change
     localStorage.setItem("todoList", JSON.stringify(todoList));
   }, [todoList]);
 
-
-
-
-  const deleteItemById = itemId => {
-    const listIndex = todoList.findIndex(list =>
-      list.todoItems.some(item => item.id === itemId)
+  const deleteItemById = (itemId) => {
+    const listIndex = todoList.findIndex((list) =>
+      list.todoItems.some((item) => item.id === itemId)
     );
 
     const itemIndex = todoList[listIndex].todoItems.findIndex(
-      item => item.id === itemId
+      (item) => item.id === itemId
     );
 
     if (itemIndex !== -1) {
@@ -40,12 +34,12 @@ function TodoProvider({ children }) {
   };
 
   const updateItemById = (itemId, newObject) => {
-    const listIndex = todoList.findIndex(list =>
-      list.todoItems.some(item => item.id === itemId)
+    const listIndex = todoList.findIndex((list) =>
+      list.todoItems.some((item) => item.id === itemId)
     );
 
     const itemIndex = todoList[listIndex].todoItems.findIndex(
-      item => item.id === itemId
+      (item) => item.id === itemId
     );
 
     if (itemIndex !== -1) {
@@ -61,9 +55,9 @@ function TodoProvider({ children }) {
   };
 
   const updateCurrentCheckedItemAndList = (itemId, listId, boolean) => {
-    const updatedTodoList = todoList.map(list => {
+    const updatedTodoList = todoList.map((list) => {
       if (list.id === listId) {
-        const updatedTodoItems = list.todoItems.map(item => {
+        const updatedTodoItems = list.todoItems.map((item) => {
           if (item.id === itemId) {
             item.checked = boolean;
           } else {
@@ -78,7 +72,7 @@ function TodoProvider({ children }) {
       } else {
         return {
           ...list,
-          todoItems: list.todoItems.map(item => {
+          todoItems: list.todoItems.map((item) => {
             return {
               ...item,
               checked: false,
@@ -89,17 +83,17 @@ function TodoProvider({ children }) {
     });
 
     const updatedItem = updatedTodoList
-      .flatMap(list => list.todoItems)
-      .find(item => item.id === itemId && item.checked === true);
+      .flatMap((list) => list.todoItems)
+      .find((item) => item.id === itemId && item.checked === true);
 
-    const updatedList = updatedTodoList.find(list => list.id === listId);
+    const updatedList = updatedTodoList.find((list) => list.id === listId);
 
     setCurrentCheckedItemList(updatedList || null);
     setCurrentCheckedItem(updatedItem || null);
   };
 
   const createItem = (id, object) => {
-    const index = todoList.findIndex(list => list.id === id);
+    const index = todoList.findIndex((list) => list.id === id);
 
     if (index !== -1) {
       const updatedTodoList = [
@@ -122,7 +116,7 @@ function TodoProvider({ children }) {
     }
   };
 
-  const createList = object => {
+  const createList = (object) => {
     const updatedList = [
       ...todoList,
       {
@@ -137,14 +131,14 @@ function TodoProvider({ children }) {
     setTodoList(updatedList);
   };
 
-  const deleteListById = id => {
-    const updatedList = todoList.filter(list => list.id !== id);
+  const deleteListById = (id) => {
+    const updatedList = todoList.filter((list) => list.id !== id);
 
     setTodoList(updatedList);
   };
 
   const updateListById = (id, object) => {
-    const updatedList = todoList.map(list => {
+    const updatedList = todoList.map((list) => {
       if (list.id === id) {
         setCurrentCheckedList({ ...list, ...object });
         return { ...list, ...object };
@@ -155,7 +149,7 @@ function TodoProvider({ children }) {
   };
 
   const updateCurrentCheckedList = (id, boolean) => {
-    const updatedList = todoList.map(list => {
+    const updatedList = todoList.map((list) => {
       if (list.id === id) {
         if (list.checked === false) setCurrentCheckedList(list);
         else setCurrentCheckedList(null);
